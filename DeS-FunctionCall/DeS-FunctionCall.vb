@@ -95,7 +95,6 @@ Public Class DeS_FunctionCall
         Else
             Return {0, 0, 0, 0}
         End If
-
     End Function
     Private Sub TXTHex2Four(ByVal loc As UInteger, val As String)
         If val.Length > 0 Then
@@ -127,7 +126,6 @@ Public Class DeS_FunctionCall
         Return hex
     End Function
 
-
     Private Function HexToBArr(ByVal hexstring As String) As Byte()
         Dim length As Integer = hexString.Length
         Dim upperBound As Integer = length \ 2
@@ -158,6 +156,7 @@ Public Class DeS_FunctionCall
         AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.")
         AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.")
         AddDesc("SaveRequest", "Save the game.", "No Parameters.")
+        AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.")
         AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.")
         AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.")
         AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.")
@@ -216,6 +215,10 @@ Public Class DeS_FunctionCall
         PS3.SetMemory(&H2A6398, code)
 
     End Sub
+    Private Sub SetJump(ByVal jumploc As String)
+        jumploc1 = Microsoft.VisualBasic.Left(jumploc, 4)
+        jumploc2 = Microsoft.VisualBasic.Right(jumploc, 4)
+    End Sub
     Private Sub triggerFunc()
         PS3.SetMemory(&H170D943, {1})
     End Sub
@@ -232,41 +235,31 @@ Public Class DeS_FunctionCall
         param5 = Hex(Convert.ToInt16(Val(txtParam5.Text)))
         param5 = padHex(param5, 4)
 
-
         Select Case cmbFunc.Text
             Case "DisableHpGauge"
-                jumploc1 = "0044"
-                jumploc2 = "43d8"
+                SetJump("004443d8")
             Case "DisableMapHit"
-                jumploc1 = "0044"
-                jumploc2 = "30d0"
+                SetJump("004430d0")
             Case "EraseEventSpecialEffect_2"
-                jumploc1 = "0044"
-                jumploc2 = "6b58"
+                SetJump("00446b58")
             Case "PlayAnimation"
-                jumploc1 = "0044"
-                jumploc2 = "3da0"
+                SetJump("00443da0")
             Case "ReturnMapSelect"
-                jumploc1 = "0043"
-                jumploc2 = "f980"
+                SetJump("0043f980")
             Case "SaveRequest"
-                jumploc1 = "0044"
-                jumploc2 = "18f0"
+                SetJump("004418f0")
+            Case "SaveRequest_Profile"
+                SetJump("004418b8")
             Case "SetDeadMode"
-                jumploc1 = "0044"
-                jumploc2 = "ab30"
+                SetJump("0044ab30")
             Case "SetDisableGravity"
-                jumploc1 = "0044"
-                jumploc2 = "6a48"
+                SetJump("00446a48")
             Case "SetEventSpecialEffect_2"
-                jumploc1 = "0044"
-                jumploc2 = "6c10"
+                SetJump("00446c10")
             Case "Warp"
-                jumploc1 = "0044"
-                jumploc2 = "3f40"
+                SetJump("00443f40")
             Case "WarpNextStage"
-                jumploc1 = "0045"
-                jumploc2 = "1430"
+                SetJump("00451430")
         End Select
 
         code = HexToBArr(codeopen & _

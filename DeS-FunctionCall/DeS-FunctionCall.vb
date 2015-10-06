@@ -150,16 +150,22 @@ Public Class DeS_FunctionCall
 
 
     Sub initFuncDesc()
+        AddDesc("CreateCamSfx", " (Temp disabled for param size)", "Parameters - Unknown ID, Unknown value (0 in examples).")
         AddDesc("DisableHpGauge", "Turn off floating HP bar.", "Parameters - Creature ID, 0/1.")
         AddDesc("DisableMapHit", "Turn off Map collisions for creature.", "Parameters - Creature ID, 0/1.")
         AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.")
+        AddDesc("OpenCampMenu", "Open the Start menu.", "No Parameters.")
+        AddDesc("PauseTutorial", "Unknown Function.", "No Parameters.")
         AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.")
         AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.")
         AddDesc("SaveRequest", "Save the game.", "No Parameters.")
         AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.")
+        AddDesc("SetBallista", "Unknown function.", "Parameters - Unknown ID, Creature ID.")
         AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.")
         AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.")
         AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.")
+        AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.")
+        AddDesc("SummonedMapReload", "Unknown Effect", "No Parameters.")
         AddDesc("Warp", "Warp creature to area.", "Parameters - Creature ID, Warp ID.")
         AddDesc("WarpNextStage", "Warp player to new map.", "Parameters - World ID, Level ID, Area ID, Subarea ID, Warp ID")
     End Sub
@@ -236,12 +242,18 @@ Public Class DeS_FunctionCall
         param5 = padHex(param5, 4)
 
         Select Case cmbFunc.Text
+            Case "CreateCamSfx"
+                SetJump("00441ee8")
             Case "DisableHpGauge"
                 SetJump("004443d8")
             Case "DisableMapHit"
                 SetJump("004430d0")
             Case "EraseEventSpecialEffect_2"
                 SetJump("00446b58")
+            Case "OpenCampMenu"
+                SetJump("0043ece8")
+            Case "PauseTutorial"
+                SetJump("00441e70")
             Case "PlayAnimation"
                 SetJump("00443da0")
             Case "ReturnMapSelect"
@@ -250,12 +262,18 @@ Public Class DeS_FunctionCall
                 SetJump("004418f0")
             Case "SaveRequest_Profile"
                 SetJump("004418b8")
+            Case "SetBallista"
+                SetJump("00447dc0")
             Case "SetDeadMode"
                 SetJump("0044ab30")
             Case "SetDisableGravity"
                 SetJump("00446a48")
             Case "SetEventSpecialEffect_2"
                 SetJump("00446c10")
+            Case "SetSubMenuBrake"
+                SetJump("0043e300")
+            Case "SummonedMapReload"
+                SetJump("00441ab8")
             Case "Warp"
                 SetJump("00443f40")
             Case "WarpNextStage"

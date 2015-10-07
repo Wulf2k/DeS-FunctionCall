@@ -198,11 +198,14 @@ Public Class DeS_FunctionCall
         AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.", "")
         AddDesc("SetBallista", "Unknown function.", "Parameters - Unknown ID, Creature ID.", "ss")
         AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetDisable", "Remove target creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetDisableBackread_forEvent", "Part of disabling a creature, exact function uncertain.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
         AddDesc("SetHp", "Set creature's current HP.", "Parameters - Creature ID, 0-1 percentage of HP.", "sf")
         AddDesc("SetMenuBrake", "Disable the start menu.  (Is immediately overridden.)", "No Parameters.", "")
         AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.", "ss")
+        AddDesc("SetSuperArmor", "Enable Super Armor on creature.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("StopPlayer", "Disable player movement.  Use EnableLogic to re-enable.", "No Parameters.", "")
         AddDesc("SummonBlackRequest", "Believed to request a black invader, like Old Monk.", "Parameters - Area ID.", "s")
         AddDesc("SummonedMapReload", "Unknown Effect", "No Parameters.", "")
@@ -323,6 +326,10 @@ Public Class DeS_FunctionCall
                 SetJump("00447dc0")
             Case "SetDeadMode"
                 SetJump("0044ab30")
+            Case "SetDisable"
+                SetJump("00446788")
+            Case "SetDisableBackread_forEvent"
+                SetJump("004449a8")
             Case "SetDisableGravity"
                 SetJump("00446a48")
             Case "SetEventSpecialEffect_2"
@@ -333,6 +340,8 @@ Public Class DeS_FunctionCall
                 SetJump("0043f8f8")
             Case "SetSubMenuBrake"
                 SetJump("0043e300")
+            Case "SetSuperArmor"
+                SetJump("00442fd8")
             Case "StopPlayer"
                 SetJump("00441dc8")
             Case "SummonBlackRequest"

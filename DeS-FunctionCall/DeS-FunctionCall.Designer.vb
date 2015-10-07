@@ -31,11 +31,16 @@ Partial Class DeS_FunctionCall
         Me.txtParam4 = New System.Windows.Forms.TextBox()
         Me.txtParam3 = New System.Windows.Forms.TextBox()
         Me.txtParam5 = New System.Windows.Forms.TextBox()
+        Me.lblParam1 = New System.Windows.Forms.Label()
+        Me.lblParam2 = New System.Windows.Forms.Label()
+        Me.lblParam3 = New System.Windows.Forms.Label()
+        Me.lblParam4 = New System.Windows.Forms.Label()
+        Me.lblParam5 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnExecute
         '
-        Me.btnExecute.Location = New System.Drawing.Point(442, 116)
+        Me.btnExecute.Location = New System.Drawing.Point(442, 132)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(75, 23)
         Me.btnExecute.TabIndex = 0
@@ -52,7 +57,7 @@ Partial Class DeS_FunctionCall
         '
         'btnHook
         '
-        Me.btnHook.Location = New System.Drawing.Point(13, 116)
+        Me.btnHook.Location = New System.Drawing.Point(13, 132)
         Me.btnHook.Name = "btnHook"
         Me.btnHook.Size = New System.Drawing.Size(75, 23)
         Me.btnHook.TabIndex = 2
@@ -65,6 +70,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam1.Name = "txtParam1"
         Me.txtParam1.Size = New System.Drawing.Size(50, 20)
         Me.txtParam1.TabIndex = 3
+        Me.txtParam1.Visible = False
         '
         'txtParam2
         '
@@ -72,10 +78,11 @@ Partial Class DeS_FunctionCall
         Me.txtParam2.Name = "txtParam2"
         Me.txtParam2.Size = New System.Drawing.Size(50, 20)
         Me.txtParam2.TabIndex = 4
+        Me.txtParam2.Visible = False
         '
         'txtDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(13, 40)
+        Me.txtDescription.Location = New System.Drawing.Point(13, 56)
         Me.txtDescription.Multiline = True
         Me.txtDescription.Name = "txtDescription"
         Me.txtDescription.Size = New System.Drawing.Size(504, 70)
@@ -87,6 +94,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam4.Name = "txtParam4"
         Me.txtParam4.Size = New System.Drawing.Size(50, 20)
         Me.txtParam4.TabIndex = 7
+        Me.txtParam4.Visible = False
         '
         'txtParam3
         '
@@ -94,6 +102,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam3.Name = "txtParam3"
         Me.txtParam3.Size = New System.Drawing.Size(50, 20)
         Me.txtParam3.TabIndex = 6
+        Me.txtParam3.Visible = False
         '
         'txtParam5
         '
@@ -101,12 +110,68 @@ Partial Class DeS_FunctionCall
         Me.txtParam5.Name = "txtParam5"
         Me.txtParam5.Size = New System.Drawing.Size(50, 20)
         Me.txtParam5.TabIndex = 8
+        Me.txtParam5.Visible = False
+        '
+        'lblParam1
+        '
+        Me.lblParam1.AutoSize = True
+        Me.lblParam1.Location = New System.Drawing.Point(256, 35)
+        Me.lblParam1.Name = "lblParam1"
+        Me.lblParam1.Size = New System.Drawing.Size(10, 13)
+        Me.lblParam1.TabIndex = 9
+        Me.lblParam1.Text = "."
+        Me.lblParam1.Visible = False
+        '
+        'lblParam2
+        '
+        Me.lblParam2.AutoSize = True
+        Me.lblParam2.Location = New System.Drawing.Point(312, 35)
+        Me.lblParam2.Name = "lblParam2"
+        Me.lblParam2.Size = New System.Drawing.Size(10, 13)
+        Me.lblParam2.TabIndex = 10
+        Me.lblParam2.Text = "."
+        Me.lblParam2.Visible = False
+        '
+        'lblParam3
+        '
+        Me.lblParam3.AutoSize = True
+        Me.lblParam3.Location = New System.Drawing.Point(368, 35)
+        Me.lblParam3.Name = "lblParam3"
+        Me.lblParam3.Size = New System.Drawing.Size(10, 13)
+        Me.lblParam3.TabIndex = 11
+        Me.lblParam3.Text = "."
+        Me.lblParam3.Visible = False
+        '
+        'lblParam4
+        '
+        Me.lblParam4.AutoSize = True
+        Me.lblParam4.Location = New System.Drawing.Point(425, 35)
+        Me.lblParam4.Name = "lblParam4"
+        Me.lblParam4.Size = New System.Drawing.Size(10, 13)
+        Me.lblParam4.TabIndex = 12
+        Me.lblParam4.Text = "."
+        Me.lblParam4.Visible = False
+        '
+        'lblParam5
+        '
+        Me.lblParam5.AutoSize = True
+        Me.lblParam5.Location = New System.Drawing.Point(480, 35)
+        Me.lblParam5.Name = "lblParam5"
+        Me.lblParam5.Size = New System.Drawing.Size(10, 13)
+        Me.lblParam5.TabIndex = 13
+        Me.lblParam5.Text = "."
+        Me.lblParam5.Visible = False
         '
         'DeS_FunctionCall
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(520, 145)
+        Me.ClientSize = New System.Drawing.Size(521, 160)
+        Me.Controls.Add(Me.lblParam5)
+        Me.Controls.Add(Me.lblParam4)
+        Me.Controls.Add(Me.lblParam3)
+        Me.Controls.Add(Me.lblParam2)
+        Me.Controls.Add(Me.lblParam1)
         Me.Controls.Add(Me.txtParam5)
         Me.Controls.Add(Me.txtParam4)
         Me.Controls.Add(Me.txtParam3)
@@ -131,4 +196,9 @@ Partial Class DeS_FunctionCall
     Friend WithEvents txtParam4 As System.Windows.Forms.TextBox
     Friend WithEvents txtParam3 As System.Windows.Forms.TextBox
     Friend WithEvents txtParam5 As System.Windows.Forms.TextBox
+    Friend WithEvents lblParam1 As System.Windows.Forms.Label
+    Friend WithEvents lblParam2 As System.Windows.Forms.Label
+    Friend WithEvents lblParam3 As System.Windows.Forms.Label
+    Friend WithEvents lblParam4 As System.Windows.Forms.Label
+    Friend WithEvents lblParam5 As System.Windows.Forms.Label
 End Class

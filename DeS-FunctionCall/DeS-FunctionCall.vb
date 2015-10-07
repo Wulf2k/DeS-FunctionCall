@@ -5,18 +5,20 @@ Public Class DeS_FunctionCall
 
     Dim PS3 As PS3API = PS3Connector.PS3
     Dim api As String = PS3Connector.api
-    Dim funcLoc As UInteger = &H170D944&
+    Dim funcLoc As UInteger = &H170D958&
 
     Dim funcDesc() As String = {}
 
     Dim codeopen As String = "7c0802a6" & "38800000" & "90830000"
-    Dim codeclose As String = "7c0903a6" & "4e800421" & "7c0803a6" & "4970d516"
+    Dim codeclose As String = "7c0903a6" & "4e800421" & "7c0803a6" & "4970d52a"
 
-    Dim param1 As String
-    Dim param2 As String
-    Dim param3 As String
-    Dim param4 As String
-    Dim param5 As String
+    Dim cllTxtParam() As TextBox
+    Dim cllLblParam() As Label
+    Dim cllIntParam() As String
+    Dim cllFltParam() As String
+
+    Dim intParam1, intParam2, intParam3, intParam4, intParam5 As String
+    Dim fltParam1, fltParam2, fltParam3, fltParam4, fltParam5 As String
 
     Dim jumploc1 As String
     Dim jumploc2 As String
@@ -125,52 +127,95 @@ Public Class DeS_FunctionCall
         Next
         Return hex
     End Function
+    Private Function BArrToStr(ByVal bytes() As Byte)
+        Dim tmpstr As String = ""
+        For i = 0 To bytes.Length - 1
+            tmpstr = tmpstr + padHex(Hex(bytes(i)), 2)
+        Next
+        Return tmpstr
+    End Function
+
 
     Private Function HexToBArr(ByVal hexstring As String) As Byte()
-        Dim length As Integer = hexString.Length
+        Dim length As Integer = hexstring.Length
         Dim upperBound As Integer = length \ 2
         If length Mod 2 = 0 Then
             upperBound -= 1
         Else
-            hexString = "0" & hexString
+            hexstring = "0" & hexstring
         End If
         Dim bytes(upperBound) As Byte
         For i As Integer = 0 To upperBound
-            bytes(i) = Convert.ToByte(hexString.Substring(i * 2, 2), 16)
+            bytes(i) = Convert.ToByte(hexstring.Substring(i * 2, 2), 16)
         Next
         Return bytes
     End Function
-    Private Sub AddDesc(ByVal name As String, ByVal desc As String, ByVal params As String)
-        Array.Resize(funcDesc, funcDesc.Length + 2)
+    Private Sub AddDesc(ByVal name As String, ByVal desc As String, ByVal params As String, numParams As String)
+        Array.Resize(funcDesc, funcDesc.Length + 3)
 
-        funcDesc(funcDesc.Length - 2) = name
-        funcDesc(funcDesc.Length - 1) = desc & Environment.NewLine & Environment.NewLine & params
+        funcDesc(funcDesc.Length - 3) = name
+        funcDesc(funcDesc.Length - 2) = desc & Environment.NewLine & Environment.NewLine & params
+        funcDesc(funcDesc.Length - 1) = numParams
         cmbFunc.Items.Add(name)
     End Sub
+    Private Sub EnableParams(ByVal numParams As String)
+        For i = 0 To 4
+            If i <= numParams.Length - 1 Then
 
+                cllTxtParam(i).Visible = True
+                cllLblParam(i).Visible = True
+                Select Case numParams(i)
+                    Case "s"
+                        cllLblParam(i).Text = "s32"
+                    Case "f"
+                        cllLblParam(i).Text = "f32"
+                End Select
+            Else
+                cllTxtParam(i).Visible = False
+                cllLblParam(i).Visible = False
+            End If
+        Next
+
+    End Sub
 
     Sub initFuncDesc()
-        AddDesc("CreateCamSfx", " (Temp disabled for param size)", "Parameters - Unknown ID, Unknown value (0 in examples).")
-        AddDesc("DisableHpGauge", "Turn off floating HP bar.", "Parameters - Creature ID, 0/1.")
-        AddDesc("DisableMapHit", "Turn off Map collisions for creature.", "Parameters - Creature ID, 0/1.")
-        AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.")
-        AddDesc("OpenCampMenu", "Open the Start menu.", "No Parameters.")
-        AddDesc("PauseTutorial", "Unknown Function.", "No Parameters.")
-        AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.")
-        AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.")
-        AddDesc("SaveRequest", "Save the game.", "No Parameters.")
-        AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.")
-        AddDesc("SetBallista", "Unknown function.", "Parameters - Unknown ID, Creature ID.")
-        AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.")
-        AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.")
-        AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.")
-        AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.")
-        AddDesc("SummonedMapReload", "Unknown Effect", "No Parameters.")
-        AddDesc("Warp", "Warp creature to area.", "Parameters - Creature ID, Warp ID.")
-        AddDesc("WarpNextStage", "Warp player to new map.", "Parameters - World ID, Level ID, Area ID, Subarea ID, Warp ID")
+        AddDesc("ChangeModel", "Unknown Function", "Parameters - Object ID, Model ID", "ss")
+        AddDesc("CloseMenu", "Close the Start menu.", "No Parameters.", "")
+        AddDesc("CreateCamSfx", "Unknown function.", "Parameters - Unknown ID, Unknown value (0 in examples).", "ss")
+        AddDesc("DisableHpGauge", "Turn off floating HP bar.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("DisableMapHit", "Turn off Map collisions for creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("EnableLogic", "Enable or disable logic on target creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
+        AddDesc("GetHostPlayerNo", "Get Host's Creature ID.  Unsure how to retreive.", "No Parameters.", "")
+        AddDesc("IsOnline", "Returns online status.  Unsure how to retrieve.", "No Parameters.", "")
+        AddDesc("IsOnlineMode", "Returns status of online mode. Unsure how to retrieve", "No Parameters.", "")
+        AddDesc("OpenCampMenu", "Open the Start menu.", "No Parameters.", "")
+        AddDesc("PauseTutorial", "Unknown Function.", "No Parameters.", "")
+        AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.", "ss")
+        AddDesc("PlayLoopAnimation", "Force selected creature into a loop of a specific animation", "Parameters - CreatureID, AnimationID", "ss")
+        AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.", "")
+        AddDesc("SaveRequest", "Save the game.", "No Parameters.", "")
+        AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.", "")
+        AddDesc("SetBallista", "Unknown function.", "Parameters - Unknown ID, Creature ID.", "ss")
+        AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
+        AddDesc("SetHp", "Set creature's current HP.", "Parameters - Creature ID, 0-1 percentage of HP.", "sf")
+        AddDesc("SetMenuBrake", "Disable the start menu.  (Is immediately overridden.)", "No Parameters.", "")
+        AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.", "ss")
+        AddDesc("StopPlayer", "Disable player movement.  Use EnableLogic to re-enable.", "No Parameters.", "")
+        AddDesc("SummonBlackRequest", "Believed to request a black invader, like Old Monk.", "Parameters - Area ID.", "s")
+        AddDesc("SummonedMapReload", "Unknown Effect", "No Parameters.", "")
+        AddDesc("Warp", "Warp creature to area.", "Parameters - Creature ID, Warp ID.", "ss")
+        AddDesc("WarpSelfBloodMark", "Warp yourself to the map containing your bloodstain.  Parameter appears to be ignored.", "Parameters - 0/1.", "s")
+        AddDesc("WarpNextStage", "Warp player to new map.", "Parameters - World ID, Level ID, Area ID, Subarea ID, Warp ID", "sssss")
     End Sub
 
     Private Sub DeS_FunctionCall_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cllTxtParam = {txtParam1, txtParam2, txtParam3, txtParam4, txtParam5}
+        cllLblParam = {lblParam1, lblParam2, lblParam3, lblParam4, lblParam5}
+        cllIntParam = {intParam1, intParam2, intParam3, intParam4, intParam5}
+        cllFltParam = {fltParam1, fltParam2, fltParam3, fltParam4, fltParam5}
         initFuncDesc()
     End Sub
     Private Sub DeS_FunctionCall_Close(sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -193,12 +238,22 @@ Public Class DeS_FunctionCall
             "f8a10068" & _
             "fbc10070" & _
             "fbe10078" & _
+            "d8210080" & _
+            "d8410088" & _
+            "d8610090" & _
+            "d8810098" & _
+            "d8a100a0" & _
             "3c600170" & _
             "6063d940" & _
             "80830000" & _
             "2f840000" & _
             "419e0008" & _
-            "48000439" & _
+            "48000435" & _
+            "c8210080" & _
+            "c8410088" & _
+            "c8610090" & _
+            "c8810098" & _
+            "c8a100a0" & _
             "e8010048" & _
             "ebe10078" & _
             "ebc10070" & _
@@ -229,33 +284,35 @@ Public Class DeS_FunctionCall
         PS3.SetMemory(&H170D943, {1})
     End Sub
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
-
-        param1 = Hex(Convert.ToInt16(Val(txtParam1.Text)))
-        param1 = padHex(param1, 4)
-        param2 = Hex(Convert.ToInt16(Val(txtParam2.Text)))
-        param2 = padHex(param2, 4)
-        param3 = Hex(Convert.ToInt16(Val(txtParam3.Text)))
-        param3 = padHex(param3, 4)
-        param4 = Hex(Convert.ToInt16(Val(txtParam4.Text)))
-        param4 = padHex(param4, 4)
-        param5 = Hex(Convert.ToInt16(Val(txtParam5.Text)))
-        param5 = padHex(param5, 4)
-
         Select Case cmbFunc.Text
+            Case "ChangeModel"
+                SetJump("0044a960")
+            Case "CloseMenu"
+                SetJump("0043f8d0")
             Case "CreateCamSfx"
                 SetJump("00441ee8")
             Case "DisableHpGauge"
                 SetJump("004443d8")
             Case "DisableMapHit"
                 SetJump("004430d0")
+            Case "EnableLogic"
+                SetJump("00443838")
             Case "EraseEventSpecialEffect_2"
                 SetJump("00446b58")
+            Case "GetHostPlayerNo"
+                SetJump("00443f90")
+            Case "IsOnline"
+                SetJump("00447330")
+            Case "IsOnlineMode"
+                SetJump("0043e3e8")
             Case "OpenCampMenu"
                 SetJump("0043ece8")
             Case "PauseTutorial"
                 SetJump("00441e70")
             Case "PlayAnimation"
                 SetJump("00443da0")
+            Case "PlayLoopAnimation"
+                SetJump("00443c40")
             Case "ReturnMapSelect"
                 SetJump("0043f980")
             Case "SaveRequest"
@@ -270,26 +327,62 @@ Public Class DeS_FunctionCall
                 SetJump("00446a48")
             Case "SetEventSpecialEffect_2"
                 SetJump("00446c10")
+            Case "SetHp"
+                SetJump("004477b8")
+            Case "SetMenuBrake"
+                SetJump("0043f8f8")
             Case "SetSubMenuBrake"
                 SetJump("0043e300")
+            Case "StopPlayer"
+                SetJump("00441dc8")
+            Case "SummonBlackRequest"
+                SetJump("00444770")
             Case "SummonedMapReload"
                 SetJump("00441ab8")
             Case "Warp"
                 SetJump("00443f40")
+            Case "WarpSelfBloodMark"
+                SetJump("00451518")
             Case "WarpNextStage"
                 SetJump("00451430")
         End Select
 
-        code = HexToBArr(codeopen & _
-         "3880" & param1 & _
-         "38a0" & param2 & _
-         "38c0" & param3 & _
-         "38e0" & param4 & _
-         "3900" & param5 & _
-         "3c00" & jumploc1 & _
-         "6000" & jumploc2 & _
-         codeclose)
+        Dim intNum = 0
+        Dim fltNum = 0
 
+        For i = 0 To 4
+            cllIntParam(i) = "00000000"
+            cllFltParam(i) = "00000000"
+            Select Case cllLblParam(i).Text
+                Case "s32"
+                    cllIntParam(intNum) = Hex(Convert.ToInt32(Val(cllTxtParam(i).Text)))
+                    cllIntParam(i) = padHex(cllIntParam(i), 8)
+                    intNum += 1
+                Case "f32"
+                    cllFltParam(fltNum) = BArrToStr(ReverseFourBytes(BitConverter.GetBytes(Convert.ToSingle(cllTxtParam(i).Text))))
+                    fltNum += 1
+            End Select
+        Next
+
+        Dim tmpcode As String = ""
+
+        For i = 0 To 4
+            tmpcode = tmpcode & "3c80" & Microsoft.VisualBasic.Left(cllFltParam(i), 4) &
+                "6084" & Microsoft.VisualBasic.Right(cllFltParam(i), 4) & _
+                "9083" & padHex(Hex(i * 4 + 4), 4) & _
+                "c0" & Hex(i * 2 + 2) & "3" & padHex(Hex(i * 4 + 4), 4)
+        Next
+
+        For i = 0 To 4
+            tmpcode = tmpcode & "3" & Hex(&HC8 + (i * 2)) & "0" & Microsoft.VisualBasic.Left(cllIntParam(i), 4) & _
+                "6" & padHex(Hex(8 + i * 2), 2) & Hex(i + 4) & Microsoft.VisualBasic.Right(cllIntParam(i), 4)
+        Next
+
+        code = HexToBArr(codeopen & _
+                         tmpcode & _
+                         "3c00" & jumploc1 & _
+                         "6000" & jumploc2 & _
+                         codeclose)
         PS3.SetMemory(funcLoc, code)
         triggerFunc()
     End Sub
@@ -298,6 +391,7 @@ Public Class DeS_FunctionCall
 
         If index > -1 Then
             txtDescription.Text = funcDesc(index + 1)
+            EnableParams(funcDesc(index + 2))
         Else
             txtDescription.Text = ""
         End If

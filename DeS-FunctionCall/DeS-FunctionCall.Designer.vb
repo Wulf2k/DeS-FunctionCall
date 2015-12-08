@@ -53,14 +53,14 @@ Partial Class DeS_FunctionCall
         Me.cmbFunc.Location = New System.Drawing.Point(13, 12)
         Me.cmbFunc.Name = "cmbFunc"
         Me.cmbFunc.Size = New System.Drawing.Size(210, 21)
-        Me.cmbFunc.TabIndex = 1
+        Me.cmbFunc.TabIndex = 2
         '
         'btnHook
         '
         Me.btnHook.Location = New System.Drawing.Point(13, 132)
         Me.btnHook.Name = "btnHook"
         Me.btnHook.Size = New System.Drawing.Size(75, 23)
-        Me.btnHook.TabIndex = 2
+        Me.btnHook.TabIndex = 1
         Me.btnHook.Text = "Insert Hook"
         Me.btnHook.UseVisualStyleBackColor = True
         '
@@ -86,14 +86,14 @@ Partial Class DeS_FunctionCall
         Me.txtDescription.Multiline = True
         Me.txtDescription.Name = "txtDescription"
         Me.txtDescription.Size = New System.Drawing.Size(504, 70)
-        Me.txtDescription.TabIndex = 5
+        Me.txtDescription.TabIndex = 8
         '
         'txtParam4
         '
         Me.txtParam4.Location = New System.Drawing.Point(411, 12)
         Me.txtParam4.Name = "txtParam4"
         Me.txtParam4.Size = New System.Drawing.Size(50, 20)
-        Me.txtParam4.TabIndex = 7
+        Me.txtParam4.TabIndex = 6
         Me.txtParam4.Visible = False
         '
         'txtParam3
@@ -101,7 +101,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam3.Location = New System.Drawing.Point(355, 12)
         Me.txtParam3.Name = "txtParam3"
         Me.txtParam3.Size = New System.Drawing.Size(50, 20)
-        Me.txtParam3.TabIndex = 6
+        Me.txtParam3.TabIndex = 5
         Me.txtParam3.Visible = False
         '
         'txtParam5
@@ -109,7 +109,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam5.Location = New System.Drawing.Point(467, 12)
         Me.txtParam5.Name = "txtParam5"
         Me.txtParam5.Size = New System.Drawing.Size(50, 20)
-        Me.txtParam5.TabIndex = 8
+        Me.txtParam5.TabIndex = 7
         Me.txtParam5.Visible = False
         '
         'lblParam1

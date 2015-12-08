@@ -174,7 +174,10 @@ Public Class DeS_FunctionCall
                 cllTxtParam(i).Visible = False
                 cllLblParam(i).Visible = False
             End If
+            cllTxtParam(i).Text = "0"
         Next
+
+
 
     End Sub
 
@@ -226,7 +229,7 @@ Public Class DeS_FunctionCall
     End Sub
 
     Private Sub btnHook_Click(sender As Object, e As EventArgs) Handles btnHook.Click
-        code = HexToBArr("f821ff81" & _
+        code = HexToBArr("f821ff61" & _
             "7c0802a6" & _
             "f8c10038" & _
             "f8e10030" & _
@@ -245,8 +248,8 @@ Public Class DeS_FunctionCall
             "d8410088" & _
             "d8610090" & _
             "d8810098" & _
-            "d8a100a0" & _
-            "3c600170" & _
+              "3c600170" & _
+              "60000000" & _
             "6063d940" & _
             "80830000" & _
             "2f840000" & _
@@ -256,8 +259,8 @@ Public Class DeS_FunctionCall
             "c8410088" & _
             "c8610090" & _
             "c8810098" & _
-            "c8a100a0" & _
-            "e8010048" & _
+              "e8010048" & _
+              "60000000" & _
             "ebe10078" & _
             "ebc10070" & _
             "e8a10068" & _
@@ -271,9 +274,13 @@ Public Class DeS_FunctionCall
             "e9010028" & _
             "e8e10030" & _
             "e8c10038" & _
-            "38210080" & _
+            "382100a0" & _
             "4e800020")
         PS3.SetMemory(&H170D4C0, code)
+        REM "d8a100a0" & _
+        REM "c8a100a0" & _
+        REM Nopped above due to stack issues
+
 
         code = HexToBArr("49467129")
         PS3.SetMemory(&H2A6398, code)
@@ -365,7 +372,7 @@ Public Class DeS_FunctionCall
             Select Case cllLblParam(i).Text
                 Case "s32"
                     cllIntParam(intNum) = Hex(Convert.ToInt32(Val(cllTxtParam(i).Text)))
-                    cllIntParam(i) = padHex(cllIntParam(i), 8)
+                    cllIntParam(intNum) = padHex(cllIntParam(intNum), 8)
                     intNum += 1
                 Case "f32"
                     cllFltParam(fltNum) = BArrToStr(ReverseFourBytes(BitConverter.GetBytes(Convert.ToSingle(cllTxtParam(i).Text))))
@@ -375,7 +382,8 @@ Public Class DeS_FunctionCall
 
         Dim tmpcode As String = ""
 
-        For i = 0 To 4
+        REM
+        For i = 0 To 3
             tmpcode = tmpcode & "3c80" & Microsoft.VisualBasic.Left(cllFltParam(i), 4) &
                 "6084" & Microsoft.VisualBasic.Right(cllFltParam(i), 4) & _
                 "9083" & padHex(Hex(i * 4 + 4), 4) & _

@@ -174,7 +174,6 @@ Public Class DeS_FunctionCall
                 cllTxtParam(i).Visible = False
                 cllLblParam(i).Visible = False
             End If
-            cllTxtParam(i).Text = "0"
         Next
 
 
@@ -182,16 +181,25 @@ Public Class DeS_FunctionCall
     End Sub
 
     Sub initFuncDesc()
+        AddDesc("AddInventoryItem", "Add an item to the player's inventory.", "Parameters - Item ID, Category, Count.  (0 = Weapons, 268435456 = Armor, 536870912 = Accessories, 1073741824 = Goods.)", "sss")
+        AddDesc("CamReset", "Reset camera to default.", "Creature ID, 0/1.", "ss")
         AddDesc("ChangeModel", "Unknown Function", "Parameters - Object ID, Model ID", "ss")
+        AddDesc("ClearBossGauge", "Remove large boss HP bars.", "No Parameters.", "")
         AddDesc("CloseMenu", "Close the Start menu.", "No Parameters.", "")
         AddDesc("CreateCamSfx", "Unknown function.", "Parameters - Unknown ID, Unknown value (0 in examples).", "ss")
         AddDesc("DisableHpGauge", "Turn off floating HP bar.", "Parameters - Creature ID, 0/1.", "ss")
-        AddDesc("DisableMapHit", "Turn off Map collisions for creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("DisableMapHit", "Turn off map collisions for creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("DisableMove", "Disable creature movement.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("EnableLogic", "Enable or disable logic on target creature.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
-        AddDesc("GetHostPlayerNo", "Get Host's Creature ID.  Unsure how to retreive.", "No Parameters.", "")
-        AddDesc("IsOnline", "Returns online status.  Unsure how to retrieve.", "No Parameters.", "")
-        AddDesc("IsOnlineMode", "Returns status of online mode. Unsure how to retrieve", "No Parameters.", "")
+        AddDesc("ForceDead", "Force a creature to die.", "Parameters - Creature ID.", "s")
+        AddDesc("GetHostPlayerNo", "Get Host's Creature ID.", "No Parameters.", "")
+        AddDesc("GetLocalPlayerChrType", "Gets local player's ghost type.", "No Parameters.", "")
+        AddDesc("GetTargetChrID", "Gets target creature ID for specified creature.", "Parameters - Creature ID", "s")
+        AddDesc("IsOnline", "Returns online status.", "No Parameters.", "")
+        AddDesc("IsOnlineMode", "Returns status of online mode.", "No Parameters.", "")
+        AddDesc("NotNetMessage_begin", "Unknown", "No Parameters.", "")
+        AddDesc("NotNetMessage_end", "Unknown", "No Parameters.", "")
         AddDesc("OpenCampMenu", "Open the Start menu.", "No Parameters.", "")
         AddDesc("PauseTutorial", "Unknown Function.", "No Parameters.", "")
         AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.", "ss")
@@ -200,12 +208,16 @@ Public Class DeS_FunctionCall
         AddDesc("SaveRequest", "Save the game.", "No Parameters.", "")
         AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.", "")
         AddDesc("SetBallista", "Unknown function.", "Parameters - Unknown ID, Creature ID.", "ss")
+        AddDesc("SetBossGauge", "Assign creature's HP bar to large boss health gauge.", "Parameters - Creature ID, Bar #, Name ID.", "sss")
+        AddDesc("SetColiEnable", "Enable or disable creature collision for target object or creature.", "Parameters - Object/Creature ID, 0/1.", "ss")
         AddDesc("SetDeadMode", "Prevent creature from dying.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetDisable", "Remove target creature.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetDisableBackread_forEvent", "Part of disabling a creature, exact function uncertain.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetDisableGravity", "Enable or disable gravity for target creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetDrawEnable", "Enable or disable drawing target object or creature.", "Parameters - Object/Creature ID, 0/1.", "ss")
         AddDesc("SetEventSpecialEffect_2", "Apply special effect to creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
         AddDesc("SetHp", "Set creature's current HP.", "Parameters - Creature ID, 0-1 percentage of HP.", "sf")
+        AddDesc("SetIgnoreHit", "Disable all of creature's collision.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetMenuBrake", "Disable the start menu.  (Is immediately overridden.)", "No Parameters.", "")
         AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.", "ss")
         AddDesc("SetSuperArmor", "Enable Super Armor on creature.", "Parameters - Creature ID, 0/1.", "ss")
@@ -295,8 +307,14 @@ Public Class DeS_FunctionCall
     End Sub
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
         Select Case cmbFunc.Text
+            Case "AddInventoryItem"
+                SetJump("00447748")
+            Case "CamReset"
+                SetJump("004432e8")
             Case "ChangeModel"
                 SetJump("0044a960")
+            Case "ClearBossGauge"
+                SetJump("0043e490")
             Case "CloseMenu"
                 SetJump("0043f8d0")
             Case "CreateCamSfx"
@@ -307,14 +325,26 @@ Public Class DeS_FunctionCall
                 SetJump("004430d0")
             Case "EnableLogic"
                 SetJump("00443838")
+            Case "DisableMove"
+                SetJump("00443128")
             Case "EraseEventSpecialEffect_2"
                 SetJump("00446b58")
+            Case "ForceDead"
+                SetJump("00446478")
             Case "GetHostPlayerNo"
                 SetJump("00443f90")
+            Case "GetLocalPlayerChrType"
+                SetJump("0043e660")
+            Case "GetTargetChrID"
+                SetJump("0048f314")
             Case "IsOnline"
                 SetJump("00447330")
             Case "IsOnlineMode"
                 SetJump("0043e3e8")
+            Case "NotNetMessage_begin"
+                SetJump("00439198")
+            Case "NotNetMessage_end"
+                SetJump("004391a8")
             Case "OpenCampMenu"
                 SetJump("0043ece8")
             Case "PauseTutorial"
@@ -331,6 +361,10 @@ Public Class DeS_FunctionCall
                 SetJump("004418b8")
             Case "SetBallista"
                 SetJump("00447dc0")
+            Case "SetBossGauge"
+                SetJump("00441928")
+            Case "SetColiEnable"
+                SetJump("00444030")
             Case "SetDeadMode"
                 SetJump("0044ab30")
             Case "SetDisable"
@@ -339,10 +373,14 @@ Public Class DeS_FunctionCall
                 SetJump("004449a8")
             Case "SetDisableGravity"
                 SetJump("00446a48")
+            Case "SetDrawEnable"
+                SetJump("004440d8")
             Case "SetEventSpecialEffect_2"
                 SetJump("00446c10")
             Case "SetHp"
                 SetJump("004477b8")
+            Case "SetIgnoreHit"
+                SetJump("00443080")
             Case "SetMenuBrake"
                 SetJump("0043f8f8")
             Case "SetSubMenuBrake"

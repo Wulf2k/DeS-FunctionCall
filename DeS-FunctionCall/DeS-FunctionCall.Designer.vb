@@ -70,6 +70,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam1.Name = "txtParam1"
         Me.txtParam1.Size = New System.Drawing.Size(50, 20)
         Me.txtParam1.TabIndex = 3
+        Me.txtParam1.Text = "0"
         Me.txtParam1.Visible = False
         '
         'txtParam2
@@ -78,6 +79,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam2.Name = "txtParam2"
         Me.txtParam2.Size = New System.Drawing.Size(50, 20)
         Me.txtParam2.TabIndex = 4
+        Me.txtParam2.Text = "0"
         Me.txtParam2.Visible = False
         '
         'txtDescription
@@ -94,6 +96,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam4.Name = "txtParam4"
         Me.txtParam4.Size = New System.Drawing.Size(50, 20)
         Me.txtParam4.TabIndex = 6
+        Me.txtParam4.Text = "0"
         Me.txtParam4.Visible = False
         '
         'txtParam3
@@ -102,6 +105,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam3.Name = "txtParam3"
         Me.txtParam3.Size = New System.Drawing.Size(50, 20)
         Me.txtParam3.TabIndex = 5
+        Me.txtParam3.Text = "0"
         Me.txtParam3.Visible = False
         '
         'txtParam5
@@ -110,6 +114,7 @@ Partial Class DeS_FunctionCall
         Me.txtParam5.Name = "txtParam5"
         Me.txtParam5.Size = New System.Drawing.Size(50, 20)
         Me.txtParam5.TabIndex = 7
+        Me.txtParam5.Text = "0"
         Me.txtParam5.Visible = False
         '
         'lblParam1

@@ -10,7 +10,7 @@ Public Class DeS_FunctionCall
     Dim funcDesc() As String = {}
 
     Dim codeopen As String = "7c0802a6" & "38800000" & "90830000"
-    Dim codeclose As String = "7c0903a6" & "4e800421" & "7c0803a6" & "4970d52a"
+    Dim codeclose As String = "7c0903a6" & "4e800421" & "3c800170" & "6084d950" & "90640000" & "7c0803a6" & "4970d52a"
 
     Dim cllTxtParam() As TextBox
     Dim cllLblParam() As Label
@@ -195,7 +195,9 @@ Public Class DeS_FunctionCall
         AddDesc("ForceDead", "Force a creature to die.", "Parameters - Creature ID.", "s")
         AddDesc("GetHostPlayerNo", "Get Host's Creature ID.", "No Parameters.", "")
         AddDesc("GetLocalPlayerChrType", "Gets local player's ghost type.", "No Parameters.", "")
+        AddDesc("GetLocalPlayerId", "Gets ID of local player.", "No Parameters.", "")
         AddDesc("GetTargetChrID", "Gets target creature ID for specified creature.", "Parameters - Creature ID", "s")
+        AddDesc("GetQWC", "Gets the specified tendency.", "Parameters - Unsure (0-2).", "s")
         AddDesc("IsOnline", "Returns online status.", "No Parameters.", "")
         AddDesc("IsOnlineMode", "Returns status of online mode.", "No Parameters.", "")
         AddDesc("NotNetMessage_begin", "Unknown", "No Parameters.", "")
@@ -333,10 +335,14 @@ Public Class DeS_FunctionCall
                 SetJump("00446478")
             Case "GetHostPlayerNo"
                 SetJump("00443f90")
+            Case "GetLocalPlayerID"
+                SetJump("00439160")
             Case "GetLocalPlayerChrType"
                 SetJump("0043e660")
             Case "GetTargetChrID"
-                SetJump("0048f314")
+                SetJump("00446ed0")
+            Case "GetQWC"
+                SetJump("00442898")
             Case "IsOnline"
                 SetJump("00447330")
             Case "IsOnlineMode"
@@ -440,6 +446,11 @@ Public Class DeS_FunctionCall
                          codeclose)
         PS3.SetMemory(funcLoc, code)
         triggerFunc()
+
+        Threading.Thread.Sleep(500)
+
+        txtResult.Text = Four2SInteger(&H170D950&)
+        TXTSInteger2Four(&H170D950&, 0)
     End Sub
     Private Sub cmbFunc_Change(sender As Object, e As EventArgs) Handles cmbFunc.TextChanged
         Dim index = Array.IndexOf(funcDesc, cmbFunc.Text)

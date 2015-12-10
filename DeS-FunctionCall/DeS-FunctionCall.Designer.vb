@@ -36,6 +36,8 @@ Partial Class DeS_FunctionCall
         Me.lblParam3 = New System.Windows.Forms.Label()
         Me.lblParam4 = New System.Windows.Forms.Label()
         Me.lblParam5 = New System.Windows.Forms.Label()
+        Me.txtResult = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnExecute
@@ -167,11 +169,29 @@ Partial Class DeS_FunctionCall
         Me.lblParam5.Text = "."
         Me.lblParam5.Visible = False
         '
+        'txtResult
+        '
+        Me.txtResult.Location = New System.Drawing.Point(243, 135)
+        Me.txtResult.Name = "txtResult"
+        Me.txtResult.Size = New System.Drawing.Size(106, 20)
+        Me.txtResult.TabIndex = 14
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(197, 138)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(40, 13)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "Result:"
+        '
         'DeS_FunctionCall
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(521, 160)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.txtResult)
         Me.Controls.Add(Me.lblParam5)
         Me.Controls.Add(Me.lblParam4)
         Me.Controls.Add(Me.lblParam3)
@@ -206,4 +226,6 @@ Partial Class DeS_FunctionCall
     Friend WithEvents lblParam3 As System.Windows.Forms.Label
     Friend WithEvents lblParam4 As System.Windows.Forms.Label
     Friend WithEvents lblParam5 As System.Windows.Forms.Label
+    Friend WithEvents txtResult As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

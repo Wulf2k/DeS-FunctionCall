@@ -181,6 +181,9 @@ Public Class DeS_FunctionCall
     End Sub
 
     Sub initFuncDesc()
+        AddDesc("AddClearCount", "Increases NG+ count.", "No Parameters.", "")
+        AddDesc("AddDeathCount", "Increases death count.", "No Parameters.", "")
+        AddDesc("AddHelpWhiteGhost", "Increases white ghosts helped count.", "No Parameters.", "")
         AddDesc("AddInventoryItem", "Add an item to the player's inventory.", "Parameters - Item ID, Category, Count.  (0 = Weapons, 268435456 = Armor, 536870912 = Accessories, 1073741824 = Goods.)", "sss")
         AddDesc("CamReset", "Reset camera to default.", "Creature ID, 0/1.", "ss")
         AddDesc("ChangeModel", "Unknown Function", "Parameters - Object ID, Model ID", "ss")
@@ -193,19 +196,26 @@ Public Class DeS_FunctionCall
         AddDesc("EnableLogic", "Enable or disable logic on target creature.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
         AddDesc("ForceDead", "Force a creature to die.", "Parameters - Creature ID.", "s")
+        AddDesc("GetBlockId", "Return current area's block ID.", "No Parameters.", "")
+        AddDesc("GetFloorMaterial", "Return the material type of floor under target creature.", "Parameters - Creature ID", "s")
+        AddDesc("GetGlobalQWC", "Return queued QWC value.", "Parameters - Unknown ID (0-2)", "s")
         AddDesc("GetHostPlayerNo", "Get Host's Creature ID.", "No Parameters.", "")
+        AddDesc("GetItem", "Give item to player.  (Appears non-functional.)", "Item ID, Category.", "ss")
         AddDesc("GetLocalPlayerChrType", "Gets local player's ghost type.", "No Parameters.", "")
         AddDesc("GetLocalPlayerId", "Gets ID of local player.", "No Parameters.", "")
+        AddDesc("GetLocalQWC", "Gets local tendency of target area.", "Parameters - Unknown ID.", "s")
         AddDesc("GetTargetChrID", "Gets target creature ID for specified creature.", "Parameters - Creature ID", "s")
         AddDesc("GetQWC", "Gets the specified tendency.", "Parameters - Unsure (0-2).", "s")
         AddDesc("IsOnline", "Returns online status.", "No Parameters.", "")
         AddDesc("IsOnlineMode", "Returns status of online mode.", "No Parameters.", "")
+        AddDesc("LockSession", "Locks session, disabling MP.", "No Parameters", "")
         AddDesc("NotNetMessage_begin", "Unknown", "No Parameters.", "")
         AddDesc("NotNetMessage_end", "Unknown", "No Parameters.", "")
         AddDesc("OpenCampMenu", "Open the Start menu.", "No Parameters.", "")
         AddDesc("PauseTutorial", "Unknown Function.", "No Parameters.", "")
         AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.", "ss")
         AddDesc("PlayLoopAnimation", "Force selected creature into a loop of a specific animation", "Parameters - CreatureID, AnimationID", "ss")
+        AddDesc("RecvGlobalQwc", "Set queued tendencies to be active.", "No Parameters.", "")
         AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.", "")
         AddDesc("SaveRequest", "Save the game.", "No Parameters.", "")
         AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.", "")
@@ -221,14 +231,20 @@ Public Class DeS_FunctionCall
         AddDesc("SetHp", "Set creature's current HP.", "Parameters - Creature ID, 0-1 percentage of HP.", "sf")
         AddDesc("SetIgnoreHit", "Disable all of creature's collision.", "Parameters - Creature ID, 0/1.", "ss")
         AddDesc("SetMenuBrake", "Disable the start menu.  (Is immediately overridden.)", "No Parameters.", "")
+        AddDesc("SetPartyRestrictNum", "Sets maximum party size.", "Parameters - Max players.", "ss")
         AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.", "ss")
         AddDesc("SetSuperArmor", "Enable Super Armor on creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("ShowGenDialog", "Show Dialog Box.", "Parameters - Message ID, Prompt ID, Prompt Type, Unknown.", "ssss")
         AddDesc("StopPlayer", "Disable player movement.  Use EnableLogic to re-enable.", "No Parameters.", "")
         AddDesc("SummonBlackRequest", "Believed to request a black invader, like Old Monk.", "Parameters - Area ID.", "s")
-        AddDesc("SummonedMapReload", "Unknown Effect", "No Parameters.", "")
+        AddDesc("SummonedMapReload", "Unknown Effect.", "No Parameters.", "")
+        AddDesc("Tutorial_begin", "Enter Tutorial mode.  Disable autosaving.", "No Parameters.", "")
+        AddDesc("Tutorial_end", "Exit Tutorial mode.  Does not seem to re-enable autosaving.", "No Parameters.", "")
+        AddDesc("UnLockSession", "Re-enable MP capabilities.", "No Parameters.", "")
         AddDesc("Warp", "Warp creature to area.", "Parameters - Creature ID, Warp ID.", "ss")
         AddDesc("WarpSelfBloodMark", "Warp yourself to the map containing your bloodstain.  Parameter appears to be ignored.", "Parameters - 0/1.", "s")
         AddDesc("WarpNextStage", "Warp player to new map.", "Parameters - World ID, Level ID, Area ID, Subarea ID, Warp ID", "sssss")
+        AddDesc("WarpRestart", "Warp creature to area.", "Parameters - Creature ID, Unknown ID.", "ss")
     End Sub
 
     Private Sub DeS_FunctionCall_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -309,8 +325,14 @@ Public Class DeS_FunctionCall
     End Sub
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
         Select Case cmbFunc.Text
+            Case "AddClearCount"
+                SetJump("00444c88")
+            Case "AddDeathCount"
+                SetJump("00444298")
             Case "AddInventoryItem"
                 SetJump("00447748")
+            Case "AddHelpWhiteGhost"
+                SetJump("0043f8a8")
             Case "CamReset"
                 SetJump("004432e8")
             Case "ChangeModel"
@@ -333,12 +355,22 @@ Public Class DeS_FunctionCall
                 SetJump("00446b58")
             Case "ForceDead"
                 SetJump("00446478")
+            Case "GetBlockId"
+                SetJump("0043ed60")
+            Case "GetFloorMaterial"
+                SetJump("00441340")
+            Case "GetGlobalQWC"
+                SetJump("004427e8")
             Case "GetHostPlayerNo"
                 SetJump("00443f90")
+            Case "GetItem"
+                SetJump("0043fc58")
             Case "GetLocalPlayerID"
                 SetJump("00439160")
             Case "GetLocalPlayerChrType"
                 SetJump("0043e660")
+            Case "GetLocalQWC"
+                SetJump("00442840")
             Case "GetTargetChrID"
                 SetJump("00446ed0")
             Case "GetQWC"
@@ -347,6 +379,8 @@ Public Class DeS_FunctionCall
                 SetJump("00447330")
             Case "IsOnlineMode"
                 SetJump("0043e3e8")
+            Case "LockSession"
+                SetJump("00441838")
             Case "NotNetMessage_begin"
                 SetJump("00439198")
             Case "NotNetMessage_end"
@@ -359,6 +393,8 @@ Public Class DeS_FunctionCall
                 SetJump("00443da0")
             Case "PlayLoopAnimation"
                 SetJump("00443c40")
+            Case "RecvGlobalQwc"
+                SetJump("00441308")
             Case "ReturnMapSelect"
                 SetJump("0043f980")
             Case "SaveRequest"
@@ -389,22 +425,32 @@ Public Class DeS_FunctionCall
                 SetJump("00443080")
             Case "SetMenuBrake"
                 SetJump("0043f8f8")
+            Case "SetPartyRestrictNum"
+                SetJump("00444910")
             Case "SetSubMenuBrake"
                 SetJump("0043e300")
             Case "SetSuperArmor"
                 SetJump("00442fd8")
+            Case "ShowGenDialog"
+                SetJump("0043e800")
             Case "StopPlayer"
                 SetJump("00441dc8")
             Case "SummonBlackRequest"
                 SetJump("00444770")
             Case "SummonedMapReload"
                 SetJump("00441ab8")
+            Case "Tutorial_begin"
+                SetJump("0043ed38")
+            Case "UnLockSession"
+                SetJump("0044a2b8")
             Case "Warp"
                 SetJump("00443f40")
             Case "WarpSelfBloodMark"
                 SetJump("00451518")
             Case "WarpNextStage"
                 SetJump("00451430")
+            Case "WarpRestart"
+                SetJump("00443e98")
         End Select
 
         Dim intNum = 0

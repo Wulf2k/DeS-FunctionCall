@@ -185,6 +185,8 @@ Public Class DeS_FunctionCall
         AddDesc("AddDeathCount", "Increases death count.", "No Parameters.", "")
         AddDesc("AddHelpWhiteGhost", "Increases white ghosts helped count.", "No Parameters.", "")
         AddDesc("AddInventoryItem", "Add an item to the player's inventory.", "Parameters - Item ID, Category, Count.  (0 = Weapons, 268435456 = Armor, 536870912 = Accessories, 1073741824 = Goods.)", "sss")
+        AddDesc("AddKillBlackGhost", "Increases number of black phantoms killed.", "No Parameters.", "")
+        AddDesc("AddTrueDeathCount", "Increases your number of TrueDeaths (inactive feature).", "No Parameters.", "")
         AddDesc("CamReset", "Reset camera to default.", "Creature ID, 0/1.", "ss")
         AddDesc("ChangeModel", "Unknown Function", "Parameters - Object ID, Model ID", "ss")
         AddDesc("ClearBossGauge", "Remove large boss HP bars.", "No Parameters.", "")
@@ -197,12 +199,15 @@ Public Class DeS_FunctionCall
         AddDesc("EraseEventSpecialEffect_2", "Remove special effect from creature.", "Parameters - Creature ID, Special Effect ID.", "ss")
         AddDesc("ForceDead", "Force a creature to die.", "Parameters - Creature ID.", "s")
         AddDesc("GetBlockId", "Return current area's block ID.", "No Parameters.", "")
+        AddDesc("GetBossCount", "Unsure on usage.", "No Parameters.", "")
+        AddDesc("GetClearCount", "Return number of times game has been cleared.", "No Parameters.", "")
         AddDesc("GetFloorMaterial", "Return the material type of floor under target creature.", "Parameters - Creature ID", "s")
         AddDesc("GetGlobalQWC", "Return queued QWC value.", "Parameters - Unknown ID (0-2)", "s")
         AddDesc("GetHostPlayerNo", "Get Host's Creature ID.", "No Parameters.", "")
         AddDesc("GetItem", "Give item to player.  (Appears non-functional.)", "Item ID, Category.", "ss")
         AddDesc("GetLocalPlayerChrType", "Gets local player's ghost type.", "No Parameters.", "")
         AddDesc("GetLocalPlayerId", "Gets ID of local player.", "No Parameters.", "")
+        AddDesc("GetLocalPlayerSoulLv", "Gets soul level of local player.", "No Parameters.", "")
         AddDesc("GetLocalQWC", "Gets local tendency of target area.", "Parameters - Unknown ID.", "s")
         AddDesc("GetTargetChrID", "Gets target creature ID for specified creature.", "Parameters - Creature ID", "s")
         AddDesc("GetQWC", "Gets the specified tendency.", "Parameters - Unsure (0-2).", "s")
@@ -216,6 +221,7 @@ Public Class DeS_FunctionCall
         AddDesc("PlayAnimation", "Force selected creature into specific animation.", "Parameters - Creature ID, Animation ID.", "ss")
         AddDesc("PlayLoopAnimation", "Force selected creature into a loop of a specific animation", "Parameters - CreatureID, AnimationID", "ss")
         AddDesc("RecvGlobalQwc", "Set queued tendencies to be active.", "No Parameters.", "")
+        AddDesc("RequestUnlockTrophy", "Unlocks specified trophy.", "Parameters - Trophy ID.", "s")
         AddDesc("ReturnMapSelect", "Return to main menu.", "No parameters.", "")
         AddDesc("SaveRequest", "Save the game.", "No Parameters.", "")
         AddDesc("SaveRequest_Profile", "Save the profile.  (Unsure if different from regular SaveRequest).", "No Parameters.", "")
@@ -234,6 +240,8 @@ Public Class DeS_FunctionCall
         AddDesc("SetPartyRestrictNum", "Sets maximum party size.", "Parameters - Max players.", "ss")
         AddDesc("SetSubMenuBrake", "Disable Select menu in multiplayer.", "Parameters - 0/1.", "ss")
         AddDesc("SetSuperArmor", "Enable Super Armor on creature.", "Parameters - Creature ID, 0/1.", "ss")
+        AddDesc("SetTeamType", "Set creature's team type.", "Parameters - Creature ID, Team ID.", "ss")
+        AddDesc("SetTextEffect", "Display selcted text banner across screen.", "Parameters - TextEffect ID.", "s")
         AddDesc("ShowGenDialog", "Show Dialog Box.", "Parameters - Message ID, Prompt ID, Prompt Type, Unknown.", "ssss")
         AddDesc("StopPlayer", "Disable player movement.  Use EnableLogic to re-enable.", "No Parameters.", "")
         AddDesc("SummonBlackRequest", "Believed to request a black invader, like Old Monk.", "Parameters - Area ID.", "s")
@@ -329,10 +337,14 @@ Public Class DeS_FunctionCall
                 SetJump("00444c88")
             Case "AddDeathCount"
                 SetJump("00444298")
-            Case "AddInventoryItem"
-                SetJump("00447748")
             Case "AddHelpWhiteGhost"
                 SetJump("0043f8a8")
+            Case "AddInventoryItem"
+                SetJump("00447748")
+            Case "AddKillBlackGhost"
+                SetJump("0043f880")
+            Case "AddTrueDeathCount"
+                SetJump("00444250")
             Case "CamReset"
                 SetJump("004432e8")
             Case "ChangeModel"
@@ -357,6 +369,10 @@ Public Class DeS_FunctionCall
                 SetJump("00446478")
             Case "GetBlockId"
                 SetJump("0043ed60")
+            Case "GetBossCount"
+                SetJump("0043e5b8")
+            Case "GetClearCount"
+                SetJump("00444cd0")
             Case "GetFloorMaterial"
                 SetJump("00441340")
             Case "GetGlobalQWC"
@@ -365,10 +381,12 @@ Public Class DeS_FunctionCall
                 SetJump("00443f90")
             Case "GetItem"
                 SetJump("0043fc58")
-            Case "GetLocalPlayerID"
-                SetJump("00439160")
             Case "GetLocalPlayerChrType"
                 SetJump("0043e660")
+            Case "GetLocalPlayerID"
+                SetJump("00439160")
+            Case "GetLocalPlayerSoulLv"
+                SetJump("00441710")
             Case "GetLocalQWC"
                 SetJump("00442840")
             Case "GetTargetChrID"
@@ -395,6 +413,8 @@ Public Class DeS_FunctionCall
                 SetJump("00443c40")
             Case "RecvGlobalQwc"
                 SetJump("00441308")
+            Case "RequestUnlockTrophy"
+                SetJump("004446d8")
             Case "ReturnMapSelect"
                 SetJump("0043f980")
             Case "SaveRequest"
@@ -431,6 +451,10 @@ Public Class DeS_FunctionCall
                 SetJump("0043e300")
             Case "SetSuperArmor"
                 SetJump("00442fd8")
+            Case "SetTeamType"
+                SetJump("00444ba0")
+            Case "SetTextEffect"
+                SetJump("0043e4e0")
             Case "ShowGenDialog"
                 SetJump("0043e800")
             Case "StopPlayer"

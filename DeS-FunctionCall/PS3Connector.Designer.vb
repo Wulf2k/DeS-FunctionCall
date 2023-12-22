@@ -74,7 +74,7 @@ Partial Class PS3Connector
         Me.txtPS3IP.Name = "txtPS3IP"
         Me.txtPS3IP.Size = New System.Drawing.Size(107, 20)
         Me.txtPS3IP.TabIndex = 16
-        Me.txtPS3IP.Text = "10.0.0.63"
+        Me.txtPS3IP.Text = "192.168.1.232"
         '
         'btnDisconnect
         '
@@ -99,7 +99,7 @@ Partial Class PS3Connector
         Me.btnConnect.Text = "Connect"
         Me.btnConnect.UseVisualStyleBackColor = False
         '
-        'Form1
+        'PS3Connector
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -111,7 +111,7 @@ Partial Class PS3Connector
         Me.Controls.Add(Me.txtPS3IP)
         Me.Controls.Add(Me.btnDisconnect)
         Me.Controls.Add(Me.btnConnect)
-        Me.Name = "Form1"
+        Me.Name = "PS3Connector"
         Me.Text = "PS3 Connector"
         Me.ResumeLayout(False)
         Me.PerformLayout()
